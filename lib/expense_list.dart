@@ -12,6 +12,7 @@ class ExpenseList extends StatelessWidget {
     //ListView - like Column but scrollable -builder only create when the widget is visible
     return ListView.builder(
         itemCount: expenses.length, //func will run expenses.length times
-        itemBuilder: (ctx, index) => ExpenseCard(expenses[index]));
+        itemBuilder: (ctx, index) =>
+            ExpenseCard(expenses[index])); //index will increase
   }
 }
