@@ -59,7 +59,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("Chart"),
-          // wrap with Expanded if the column is inside of a column
+          // wrap with Expanded if the column/row is inside of a column/row
           Expanded(
               child: ExpenseList(
             expenses: expenses,
