@@ -47,15 +47,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: openSaveExpenseOverlay, icon: const Icon(Icons.add))
-        ],
-        title: const Text("Expense Tracker"),
-      ),
-      body: Column(
+    Widget? dynamicWidget;
+
+    if (expenses.isEmpty) {
+      dynamicWidget = const Center(
+        child: Text(("No expense found.")),
+      );
+    } else {
+      dynamicWidget = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("Chart"),
@@ -66,7 +65,18 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             onDismiss: removeExpense,
           ))
         ],
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: openSaveExpenseOverlay, icon: const Icon(Icons.add))
+        ],
+        title: const Text("Expense Tracker"),
       ),
+      body: dynamicWidget,
     );
   }
 }
