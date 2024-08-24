@@ -14,21 +14,35 @@ class ExpenseScreen extends StatefulWidget {
 
 class _ExpenseScreenState extends State<ExpenseScreen> {
   final List<Expense> expenses = [
-    Expense(
-        title: "First Expense",
-        amount: 22.3,
-        date: DateTime.now(),
-        category: Category.food),
-    Expense(
-        title: "Second Expense",
-        amount: 32.3,
-        date: DateTime.now(),
-        category: Category.leisure),
+    // Expense(
+    //     title: "First Expense",
+    //     amount: 22.3,
+    //     date: DateTime.now(),
+    //     category: Category.food),
+    // Expense(
+    //     title: "Second Expense",
+    //     amount: 32.3,
+    //     date: DateTime.now(),
+    //     category: Category.leisure),
   ];
 
   void openSaveExpenseOverlay() {
     showModalBottomSheet(
-        context: context, builder: (ctx) => const SaveExpense());
+        isScrollControlled: true, //full-height
+        context: context,
+        builder: (ctx) => SaveExpense(addExpense: addExpense));
+  }
+
+  void addExpense(Expense expense) {
+    setState(() {
+      expenses.add(expense);
+    });
+  }
+
+  void removeExpense(Expense expense) {
+    setState(() {
+      expenses.remove(expense);
+    });
   }
 
   @override
@@ -46,7 +60,11 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         children: [
           const Text("Chart"),
           // wrap with Expanded if the column is inside of a column
-          Expanded(child: ExpenseList(expenses: expenses))
+          Expanded(
+              child: ExpenseList(
+            expenses: expenses,
+            onDismiss: removeExpense,
+          ))
         ],
       ),
     );
